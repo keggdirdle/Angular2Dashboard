@@ -1,0 +1,20 @@
+<div id="weatherWidget"  *ngIf="isDataAvailable">
+    <div  (mouseover)="toggleVisibility()" (mouseout)="toggleVisibility()" class="todaysweather">
+        <span class="todaysTitle">Weather for {{city}} for {{Weather[0].Date| date: "M/d"}}</span><br>        
+        <img src="http://openweathermap.org/img/w/{{Weather[0].Icon}}.png" />
+        <span class="todaysTemp">{{Weather[0].AvgTemp}}<sup>&deg;</sup></span><br>
+        <span class="todaysDesc">{{Weather[0].Description}}</span><br>
+        <span class="todaysWind">Wind Speed {{Weather[0].WindSpeed}} mph</span>
+    </div>
+    <div [@visibility]="visibility" class="forecastRow">
+        <span *ngFor="let day of Weather | slice:1; let i = index; let last = last;let even = even; let odd = odd" [ngClass]="{ odd: odd, even: even }">
+            <div class="forecastCell">
+                <span class="forecastDate">{{day.Date | date: "M/d"}}</span><br>
+                <span class="forecastTemp">{{day.AvgTemp}}<sup>&deg;</sup></span> <br> 
+                {{day.Description}} <br> 
+                Wind Speed: {{day.WindSpeed}} <br> 
+                <img src="http://openweathermap.org/img/w/{{day.Icon}}.png" /><br> 
+            </div>
+        </span>
+    </div>
+</div>
